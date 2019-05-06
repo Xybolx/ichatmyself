@@ -15,7 +15,7 @@ class Chat extends React.Component {
             users: []
         };
 
-        this.socket = io('https://ichatmyself.herokuapp.com');
+        this.socket = io('https://ichatmyselfproject.herokuapp.com');
 
         this.socket.on('RECEIVE_MESSAGE', data => {
             addMessage(data);
