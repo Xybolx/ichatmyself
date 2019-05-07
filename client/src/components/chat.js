@@ -137,10 +137,6 @@ class Chat extends React.Component {
                             </div>
                             <div className="card-footer">
                                 <input type="text" placeholder="📝 Message" className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} autoFocus />
-                                {/* <br /> */}
-                                {/* <input type="text" placeholder="📝Private Message" className="form-control" value={this.state.privateMessage} onChange={ev => this.setState({ privateMessage: ev.target.value })} /> */}
-                                {/* <br /> */}
-                                {/* <button onClick={this.sendPrivateMessage} className="btn btn-primary form-control"> <i className="far fa-paper-plane"></i> Send </button> */}
                                 <br />
                                 <button onClick={this.sendMessage} className="btn btn-primary form-control"> <i className="far fa-paper-plane"></i> Send </button>
                                 <br />
