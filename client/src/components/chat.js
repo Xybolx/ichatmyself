@@ -80,7 +80,6 @@ class Chat extends React.Component {
     resetTimeout = () => {
         console.log("firing");
         clearTimeout(this.timeout);
-        this.timeout();
     }
     
     componentDidMount() {
