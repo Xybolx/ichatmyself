@@ -59,8 +59,7 @@ class Chat extends React.Component {
             this.setState({ message: '' });
         }
 
-        this.logOut = ev => {
-            ev.preventDefault();
+        this.logOut = () => {
             API.logOut({
             })
                 .then(res => window.location = "/login")
