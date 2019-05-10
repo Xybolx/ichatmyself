@@ -15,6 +15,8 @@ class Chat extends React.Component {
             users: []
         };
 
+        idleTimer();
+
         this.socket = io('https://ichatmyselfproject.herokuapp.com');
 
         this.socket.on('RECEIVE_MESSAGE', data => {
@@ -38,6 +40,14 @@ class Chat extends React.Component {
             console.log(this.state.messages);
         };
 
+         const idleTimer = () => {
+            window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
+            window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
+            window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
+            window.onscroll = clearTimeout(this.logOut);    // catches scrolling
+            window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
+        };
+
         this.sendMessage = ev => {
             ev.preventDefault();
             if (this.state.message) {
@@ -59,14 +69,6 @@ class Chat extends React.Component {
         }
     }
 
-    idleTimer = () => {
-        window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
-        window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
-        window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
-        window.onscroll = clearTimeout(this.logOut);    // catches scrolling
-        window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
-    };
-
     loadUsers = () => {
         API.getUsers()
             .then(res =>
@@ -85,13 +87,11 @@ class Chat extends React.Component {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
         setTimeout(this.logOut, 180000);
-        this.idleTimer();
     }
 
     componentWillUnmount() {
         clearInterval(this.loadUsers);
         clearTimeout(this.logOut);
-        this.logOut();
     }
 
     render() {
