@@ -15,8 +15,6 @@ class Chat extends React.Component {
             users: []
         };
 
-        idleTimer();
-
         this.socket = io('https://ichatmyselfproject.herokuapp.com');
 
         this.socket.on('RECEIVE_MESSAGE', data => {
@@ -40,7 +38,7 @@ class Chat extends React.Component {
             console.log(this.state.messages);
         };
 
-         const idleTimer = () => {
+        idleTimer = () => {
             window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
             window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
             window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
@@ -87,6 +85,7 @@ class Chat extends React.Component {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
         setTimeout(this.logOut, 180000);
+        this.idleTimer();
     }
 
     componentWillUnmount() {
