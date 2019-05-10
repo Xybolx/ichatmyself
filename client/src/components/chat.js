@@ -41,6 +41,7 @@ class Chat extends React.Component {
         
         this.sendMessage = ev => {
             ev.preventDefault();
+            this.resetTimeout();
             if (this.state.message) {
                 this.socket.emit('SEND_MESSAGE', {
                     author: this.state.username,
