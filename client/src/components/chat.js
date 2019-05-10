@@ -88,6 +88,10 @@ class Chat extends React.Component {
         this.idleTimer();
     }
 
+    componentDidUpdate() {
+        clearTimeout(this.logout);
+    }
+
     componentWillUnmount() {
         clearInterval(this.loadUsers);
         clearTimeout(this.logOut);
