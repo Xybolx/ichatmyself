@@ -59,13 +59,13 @@ class Chat extends React.Component {
         }
     }
 
-    idleTimer = () => {
-        window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
-        window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
-        window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
-        window.onscroll = clearTimeout(this.logOut);    // catches scrolling
-        window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
-    };
+    // idleTimer = () => {
+        // window.onmousemove = clearTimeout(this.logOut); 
+        // window.onmousedown = clearTimeout(this.logOut);
+        // window.onclick = clearTimeout(this.logOut);
+        // window.onscroll = clearTimeout(this.logOut);
+        // window.onkeypress = clearTimeout(this.logOut);
+    // };
 
     loadUsers = () => {
         API.getUsers()
@@ -83,9 +83,12 @@ class Chat extends React.Component {
     
     componentDidMount() {
         this.loadUser();
+        document.getElementById('chat').addEventListener('input', function() {
+            clearTimeout(this.logOut);
+        })
         setInterval(this.loadUsers, 3000);
         setTimeout(this.logOut, 180000);
-        this.idleTimer();
+        // this.idleTimer();
     }
 
     componentWillUnmount() {
@@ -129,7 +132,7 @@ class Chat extends React.Component {
 
                             </div>
                             <div className="card-footer">
-                                <input type="text" placeholder="📝 Message" className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} autoFocus />
+                                <input id="chat" type="text" placeholder="📝 Message" className="form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} autoFocus />
                                 <br />
                                 <button onClick={this.sendMessage} className="btn btn-primary form-control"> <i className="far fa-paper-plane"></i> Send </button>
                                 <br />
