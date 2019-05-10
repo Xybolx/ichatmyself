@@ -23,11 +23,10 @@ class Chat extends React.Component {
 
         this.socket.on('connection', socket => {
             let id = this.socket.io.engine.id;
-            console.log(socket);
+            console.log(id);
         });
 
         this.socket.on('disconnect', socket => {
-            this.logOut();
             let id = this.socket.io.engine.id;
             console.log(id);
         });
@@ -59,14 +58,6 @@ class Chat extends React.Component {
             .then(res => window.location = "/login")
         }
     }
-    
-    idleTimer = () => {
-        window.onmousemove = this.resetTimeout(); // catches mouse movements
-        window.onmousedown = this.resetTimeout(); // catches mouse movements
-        window.onclick = this.resetTimeout();     // catches mouse clicks
-        window.onscroll = this.resetTimeout();    // catches scrolling
-        window.onkeypress = this.resetTimeout();  //catches keyboard actions
-    };
 
     loadUsers = () => {
         API.getUsers()
@@ -96,13 +87,11 @@ class Chat extends React.Component {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
         this.timeout();
-        this.idleTimer();
     }
 
     componentWillUnmount() {
         clearInterval(this.loadUsers);
         clearTimeout(this.timeout);
-        this.logOut();
     }
 
     render() {
