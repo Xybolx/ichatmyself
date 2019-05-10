@@ -90,6 +90,7 @@ class Chat extends React.Component {
     }
 
     componentDidUpdate() {
+        clearTimeout(this.logout);
         setTimeout(this.logOut, 90000);
     }
 
