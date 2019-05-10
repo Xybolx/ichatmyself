@@ -80,11 +80,15 @@ class Chat extends React.Component {
                 this.setState({ username: res.data.username, userAvatar: res.data.avatarURL })
             )
     }
+
+    timeout = () => {
+        setTimeout(this.logOut, 90000);
+    }
     
     componentDidMount() {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
-        this.timeout = setTimeout(this.logOut, 90000);
+        this.timeout();
         this.idleTimer();
     }
 
