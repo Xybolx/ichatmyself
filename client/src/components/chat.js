@@ -51,23 +51,6 @@ class Chat extends React.Component {
             this.setState({ message: '' });
         }
 
-        this.sendPrivateMessage = ev => {
-            ev.preventDefault();
-            if (this.state.privateMessage) {
-                API.savePrivateMessage({
-                    author: this.state.username,
-                    privateMessage: this.state.privateMessage
-                })
-                // this.socket.emit('SEND_PRIVATE', {
-                //     author: this.state.username,
-                //     userAvatar: this.state.userAvatar,
-                //     privateMessage: this.state.privateMessage
-                // })
-            }
-
-            this.setState({ privateMessage: '' });
-        }
-
         this.logOut = ev => {
             ev.preventDefault();
             API.logOut({
@@ -75,6 +58,14 @@ class Chat extends React.Component {
                 .then(res => window.location = "/login")
         }
     }
+
+    idleTimer = () => {
+        window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
+        window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
+        window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
+        window.onscroll = clearTimeout(this.logOut);    // catches scrolling
+        window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
+    };
 
     loadUsers = () => {
         API.getUsers()
@@ -93,10 +84,16 @@ class Chat extends React.Component {
     componentDidMount() {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
+        setTimeout(this.logOut, 180000);
+    }
+
+    componentDidUpdate() {
+        this.idleTimer();
     }
 
     componentWillUnmount() {
         clearInterval(this.loadUsers);
+        clearTimeout(this.logOut);
         this.logOut();
     }
 
