@@ -39,11 +39,11 @@ class Chat extends React.Component {
         };
 
         this.idleTimer = () => {
-            window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
-            window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
-            window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
-            window.onscroll = clearTimeout(this.logOut);    // catches scrolling
-            window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
+            window.onmousemove = clearTimeout(this.timeout); // catches mouse movements
+            window.onmousedown = clearTimeout(this.timeout); // catches mouse movements
+            window.onclick = clearTimeout(this.timeout);     // catches mouse clicks
+            window.onscroll = clearTimeout(this.timeout);    // catches scrolling
+            window.onkeypress = clearTimeout(this.timeout);  //catches keyboard actions
         };
 
         this.sendMessage = ev => {
@@ -85,13 +85,13 @@ class Chat extends React.Component {
     componentDidMount() {
         this.loadUser();
         setInterval(this.loadUsers, 3000);
-        setTimeout(this.logOut, 180000);
+        this.timeout = setTimeout(this.logOut, 90000);
         this.idleTimer();
     }
 
     componentWillUnmount() {
         clearInterval(this.loadUsers);
-        clearTimeout(this.logOut);
+        clearTimeout(this.timeout);
         this.logOut();
     }
 
