@@ -38,14 +38,6 @@ class Chat extends React.Component {
             console.log(this.state.messages);
         };
 
-        idleTimer = () => {
-            window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
-            window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
-            window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
-            window.onscroll = clearTimeout(this.logOut);    // catches scrolling
-            window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
-        };
-
         this.sendMessage = ev => {
             ev.preventDefault();
             if (this.state.message) {
@@ -66,6 +58,14 @@ class Chat extends React.Component {
                 .then(res => window.location = "/login")
         }
     }
+
+    idleTimer = () => {
+        window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
+        window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
+        window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
+        window.onscroll = clearTimeout(this.logOut);    // catches scrolling
+        window.onkeypress = clearTimeout(this.logOut);  //catches keyboard actions
+    };
 
     loadUsers = () => {
         API.getUsers()
