@@ -74,7 +74,7 @@ class Chat extends React.Component {
     }
 
     timeout = () => {
-        setTimeout(this.logOut, 90000);
+        setTimeout(this.logOut, 600000);
     }
 
     resetTimeout = () => {
