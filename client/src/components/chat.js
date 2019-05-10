@@ -38,7 +38,7 @@ class Chat extends React.Component {
             console.log(this.state.messages);
         };
 
-        idleTimer = () => {
+        this.idleTimer = () => {
             window.onmousemove = clearTimeout(this.logOut); // catches mouse movements
             window.onmousedown = clearTimeout(this.logOut); // catches mouse movements
             window.onclick = clearTimeout(this.logOut);     // catches mouse clicks
